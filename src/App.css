@@ -1,0 +1,361 @@
+*{
+  margin: 0;
+}
+
+.App {
+  text-align: center;
+}
+
+h2{
+  color: #ccc9c9;
+}
+.background {
+  background-image: url('/src/images/inicial_admin.jpg');
+  background-repeat: no-repeat;
+  background-color: #f2f2f2;
+  width: 100%;
+  height:100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-size: cover;
+}
+
+.login-box {
+  background-color: rgba(19, 18, 18, 0.219);
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(6px);
+}
+
+.textbox {
+  margin-bottom: 20px;
+}
+
+.textbox input {
+  width: calc(100% - 40px);
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+}
+
+.btn {
+  width: calc(100% - 40px);
+  padding: 10px;
+  border: none;
+  background-color: #ff9100;
+  color: rgb(255, 255, 255);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #555;
+}
+
+.social-login {
+  margin-top: 20px;
+}
+
+.gmail, .facebook {
+  padding: 5px 30px;
+  margin: 0 10px;
+  border: none;
+  background-color: #ffffff;
+  cursor: pointer;
+  border-radius: 15px;
+}
+
+
+
+.apresentacao {
+  padding: 10vmin;
+}
+
+.servicos {
+  background-color: #282c34;
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(4px + 1vmin);
+  color: white;
+ 
+}
+
+.itensApresentacao {
+  background-color: #343434;
+  width: 100px;
+  height: 100px;
+  margin: 10vmin;
+}
+
+.espacoIcon {
+  padding: 1px;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.botoesLogin {
+  margin: 10px;
+}
+
+.sobre{
+  background-color: #161616;
+}
+
+
+.About {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #161616;
+}
+.image-about {
+  flex: 4; 
+  
+  max-width: 100%; 
+  height: auto; 
+  min-height: 50vh; 
+}
+
+.image-about img {
+  width: 100%; 
+  height: 100%; 
+  object-fit: cover; 
+}
+
+
+.text-about {
+  flex: 1;
+  padding: 20px;
+  text-align:left;
+}
+.text-about {
+  flex: 6;
+  padding: 20px;
+  color: #fff; 
+}
+
+.text-about h2 {
+  font-size: 28px;
+  margin-bottom: 10px; 
+}
+
+.text-about h3 {
+  font-size: 20px; 
+  margin-bottom: 5px; 
+  color: #D5A353;
+}
+
+.text-about p {
+  font-size: 16px; 
+  line-height: 1.5; 
+  margin-bottom: 15px; 
+}
+
+.saibamais {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #5B3815;
+  color: #ffffff;
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.saibamais:hover {
+  background-color: #565758;
+}
+
+
+
+.services {
+ 
+  margin: 0 auto;
+  padding: 20px;
+  background: #F9F6F2;
+}
+
+.services h2 {
+  text-align: center;
+  color: #161616;
+}
+
+.card-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card {
+  width: calc(50% - 20px); 
+  background-color: #343434;
+  padding: 20px;
+  margin-bottom: 20px;
+  margin: 10px;
+
+}
+
+.card img {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 10px;
+}
+
+.card h3 {
+  font-size: 20px;
+  color: #ffffff;
+}
+
+.card p {
+  margin-bottom: 15px;
+}
+
+.card a {
+  display: inline-block;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  color: #D5A353;
+}
+
+.card a:hover {
+ color: #ffffff79;
+}
+
+
+.news {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #161616;
+  color: #fff;
+}
+
+.image-news {
+  flex: 4;
+  max-width: 100%;
+  height: auto;
+  min-height: 50vh;
+}
+
+.image-news img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.text-news {
+  flex: 6;
+  padding: 20px;
+  text-align: left;
+}
+
+.text-news h2 {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.text-news h3 {
+  font-size: 20px;
+  margin-bottom: 5px;
+  color: #d5a353;
+}
+
+.text-news p {
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 15px;
+}
+
+.text-news .saibamais {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #5b3815;
+  color: #ffffff;
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.text-news .saibamais:hover {
+  background-color: #565758;
+}
+
+
+@media (max-width: 768px) {
+  .row {
+    flex-direction: column; 
+
+  .card {
+    width: 100%; 
+  }
+}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+@media screen and (max-width: 850px) {
+  .About {
+    display: flex; 
+    flex-direction: column; 
+    height: auto; 
+    position: relative; 
+  }
+  
+  .image-about {
+    flex: 1; 
+    background-image: url('/src/images/inicial_admin.jpg');
+    background-size: cover; 
+    background-position: center; 
+    position: relative; 
+  }
+
+  .image-about::before {
+    content: ""; 
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    background-color: rgba(0, 0, 0, 0.541); 
+    z-index: 0;
+  }
+
+  .text-about {
+    flex: 1; 
+    padding: 20px;
+    color: #fff;
+    text-align: center; 
+    position: absolute;
+    top: 50%;
+    left: 50%; 
+    transform: translate(-50%, -50%);
+    z-index: 1; 
+  }
+}
