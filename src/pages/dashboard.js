@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import './dashboard.css'; // Importe o arquivo de estilos do dashboard
 import DashboardItem from './dashboardItem';
 import "chart.js/auto";
@@ -21,12 +21,14 @@ const data = {
 };
 
 function Dashboard({ props }) {
-  const history = useNavigate();
   const location = useLocation();
-  console.log(location);
+  const info = location.state;
+  console.log(info);
 
-  if (location.state = '') {
-    history('/');
+
+  if (info === null) {
+      // Se não houver informações, redireciona para a tela inicial
+      window.location.href = "./";
   }
 
   var nome = location.state.userName;
@@ -49,7 +51,7 @@ function Dashboard({ props }) {
           <li>Estoque</li>*/}
         </ul>
         <div className="config">
-          <h3>Configurações</h3>
+          {/* <h3>Configurações</h3> */}
           {/* Adicione aqui as configurações */}
         </div>
       </div>

@@ -20,7 +20,7 @@ function Clientes({ username }) {
                     <li>Estoque</li>*/}
                 </ul>
                 <div className="config">
-                    <h3>Configurações</h3>
+                    {/* <h3>Configurações</h3> */}
                     {/* Adicione aqui as configurações */}
                 </div>
             </div>
