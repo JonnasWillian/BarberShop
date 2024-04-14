@@ -16,12 +16,8 @@ function Entradas({ username }) {
                     <li><a href='/entradas'>Entradas</a></li>
                     <li><a href='/clientes'>Clientes</a></li>
                     <li>Agenda</li>
-                    {/*<li>App para Membros</li>
-                    <li>Estoque</li>*/}
                 </ul>
                 <div className="config">
-                    {/* <h3>Configurações</h3> */}
-                    {/* Adicione aqui as configurações */}
                 </div>
             </div>
 
@@ -40,7 +36,6 @@ function Entradas({ username }) {
                 <hr />
                 <div className="reports">
                     <h2>Serviços recentes</h2>
-                    {/* Tabela */}
                     <table class="uk-table uk-table-divider">
                         <thead>
                             <tr>

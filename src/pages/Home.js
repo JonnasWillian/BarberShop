@@ -38,7 +38,8 @@ function Home() {
 
         // console.log(data.userId, data.userName)
         if (data.exists) {
-          history('/dashboard', { state: { userId: data.userId, userName: data.userName } }); // Redireciona para a página do dashboard
+          // history('/dashboard', { state: { userId: data.userId, userName: data.userName } }); // Redireciona para a página da empresa
+          history('/pagamentoCliente', { state: { userId: data.userId, userName: data.userName } }); // Redireciona para a página do usuário
         } else {
           setMensagem('Email ou senha incorreto.');
           setUserId(null);

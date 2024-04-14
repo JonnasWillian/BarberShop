@@ -16,13 +16,7 @@ function Clientes({ username }) {
                     <li><a href='/entradas'>Entradas</a></li>
                     <li><a href='/clientes'>Clientes</a></li>
                     <li>Agenda</li>
-                    {/*<li>App para Membros</li>
-                    <li>Estoque</li>*/}
                 </ul>
-                <div className="config">
-                    {/* <h3>Configurações</h3> */}
-                    {/* Adicione aqui as configurações */}
-                </div>
             </div>
 
             <div className="content">
@@ -40,7 +34,6 @@ function Clientes({ username }) {
                 <hr />
                 <div className="reports">
                     <h2>Assinaturas</h2>
-                    {/* Tabela */}
                     <table class="uk-table uk-table-divider">
                         <thead>
                             <tr>
