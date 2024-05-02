@@ -48,4 +48,7 @@ router.post('/login', async (req, res) => {
         res.status(500).json({ error: 'Erro ao buscar usuário' });
     }
 });
+
+// Criar rota do plano mercado pago
+
 module.exports = router;

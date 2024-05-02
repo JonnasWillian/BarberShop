@@ -1,77 +1,131 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import axios from 'axios';
+import Cards from 'react-credit-cards';
+import 'react-credit-cards/es/styles-compiled.css';
 
+// import { useNavigate } from 'react-router-dom';
 import './pagamento.css';
 
 function PagamentoCliente({ props }) {
-    return (
-        <div className="App">
-            <h2>Bem vindo a nossa plataforma, por favor selecione a barbearia desejada e cartão para Pagamento</h2>
 
-            <div class="payment-main-wrapper">
-                <div className="user-card-info-wrapper">
-                    <div class="header">
-                        <p className="header-info">
-                            <span>Dados do titular do cartão</span>
-                        </p>
-                    </div>
-                    <form className="credit-card-info">
-                        <label for="card-number">Número do cartão</label>
-                        <div className="credit-card-number">
-                            <input type="number" name="card-number" id="card-number"/>
-                        </div>
+  const [form, setForm] = useState({
+    nome: '',
+    numeroCartao: '',
+    expiracao: '',
+    cvv: '',
+  });
 
-                        <div className="validity-and-sc">
-                            <div className="validity">
-                                <label for="card-validity">Validade</label>
-                                <input type="number" name="card-validity" id="card-validity" placeholder="MM/AA"/>
-                            </div>
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm({ ...form, [name]: value });
+  };
 
-                            <div className="security-code">
-                                <label for="card-security-code">Código de segurança</label>
-                                <div className="card-security-code-input-and-icon">
-                                    <input type="number" name="card-security-code" id="card-security-code" placeholder="CVV"/>
-                                </div>
-                            </div>
-                        </div>
-                        <label for="name">Nome completo</label>
-                        <input type="text" name="name" id="name"/>
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      // Enviar os dados do cartão para o backend
+      const response = await axios.post('http://localhost:3001/assinatura', {
+        nome: form.nome,
+        numero_cartao: form.numeroCartao,
+        expiracao: form.expiracao,
+        cvv: form.cvv,
+      });
+      console.log('Resposta do backend:', response.data);
+      alert('Assinatura criada com sucesso!');
+    } catch (error) {
+      console.error('Erro ao criar assinatura:', error);
+      alert('Erro ao criar assinatura. Verifique os dados do cartão e tente novamente.');
+    }
+  };
 
-                        <label for="cpf">CPF</label>
-                        <input type="number" name="cpf" id="cpf" placeholder="___-___-___-__"/>
+  return (
+      <div className="App">
+          <h2 className='titulo'>Assinatura de Plano</h2>
 
-                        <div className="phone-and-birthday">
-                                <div className="phone">
-                                    <label for="card-validity">Telefone</label>
-                                    <input type="number" name="phone" id="phone" placeholder="(__) _____ - ____"/>
-                                </div>
-                                <div className="birthday">
-                                    <label for="card-validity">Data de nascimento</label>
-                                    <input type="number" name="phone" id="phone" placeholder="DD/MM/AAAA"/>
-                                </div>
-                        </div>
-
-                        <label for="parcela">Plano</label>
-                        <select name='plano' id="parcela">
-                                <option value="0">Plano Gold</option>
-                                <option  value="1">Plano Prime</option>
-                                <option  value="2">Plano Gold</option>
-                        </select>
-
-                        <label for="parcela">Barbearia</label>
-                        <select name='barbearia' id="parcela">
-                                <option value="0">Barbearia x</option>
-                                <option  value="1">Barbearia y</option>
-                                <option  value="2">Barbearia k</option>
-                                <option  value="3">Barbearia P</option>
-                        </select>
-
-                        <input type='submit' value='confirmar' id="finish-payment"/>
-                    </form>
+          <div className='planos uk-child-width-1-2@s uk-grid-match'>
+            <div>
+                <div className="uk-card uk-card-default uk-card-hover uk-card-body cardPlanos">
+                    <h3 className="uk-card-title">Plano básico</h3>
+                    <p>- 3 cortes no mês</p>
                 </div>
             </div>
-        </div>
-    )
+            <div>
+                <div className="uk-card uk-card-primary uk-card-hover uk-card-body uk-light cardPlanos">
+                    <h3 className="uk-card-title">Plano Gold</h3>
+                    <p>- 4 cortes no mês</p>
+                    <p>- 4 corte de barba no mês</p>
+                </div>
+            </div>
+            <div>
+                <div className="uk-card uk-card-secondary uk-card-hover uk-card-body uk-light cardPlanos">
+                    <h3 className="uk-card-title">Plano premium</h3>
+                    <p>- 5 cortes no mês</p>
+                    <p>- 5 corte de barba no mês</p>
+                    <p>- 5 cortes de sombranchela no mês</p>
+                </div>
+            </div>
+          </div>
+
+          <div className='cartaoCredito'>
+            <div className='cartao' style={{ marginTop: '20px' }}>
+              <Cards
+                cvc={form.cvv}
+                expiry={form.expiracao}
+                name={form.nome}
+                number={form.numeroCartao}
+                focused={'number'}
+              />
+            </div>
+            <form className='dadosCartao uk-grid-small' onSubmit={handleSubmit}>
+
+              <div className="uk-width-1-1">
+                  <input className="uk-input" type="text" name="nome" placeholder="Nome no Cartão" value={form.nome} onChange={handleChange} required aria-label="100"/>
+              </div>
+
+              <div className='divisor'>
+                <div className="uk-width-1-2@s">
+                    <input className="uk-input" type="text" placeholder="Número do cartão" name="numeroCartao" aria-label="50" value={form.numeroCartao} onChange={handleChange} required/>
+                </div>
+
+                <div className="uk-width-1-4@s">
+                  <input className="uk-input" type="text" name="expiracao" placeholder="Expiração (MM/YY)" aria-label="25" value={form.expiracao} onChange={handleChange} required/>
+                </div>
+
+                <div className="uk-width-1-4@s">
+                  <input className="uk-input" type="text" name="cvv" placeholder="CVV" aria-label="25" value={form.cvv} onChange={handleChange} required/>
+                </div>
+              </div>
+
+              <div className='divisor'>
+                <div className="uk-width-1-2@s">
+                  <label className="uk-form-label" for="form-stacked-select">Plano</label>
+                  <div className="uk-form-controls">
+                      <select className="uk-select" id="form-stacked-select">
+                          <option>Plano básico</option>
+                          <option>Plano Gold</option>
+                          <option>Plano premium</option>
+                      </select>
+                  </div>
+                </div>
+
+                <div className="uk-width-1-2@s">
+                  <label className="uk-form-label" for="form-stacked-select">Barbearia</label>
+                  <div className="uk-form-controls">
+                      <select className="uk-select" id="form-stacked-select">
+                          <option>Na régua</option>
+                          <option>Barbearia do cadu</option>
+                          <option>Corte show</option>
+                      </select>
+                  </div>
+                </div>
+              </div>
+
+              <br></br>
+              <button className="uk-button uk-button-primary"  type="submit">Assinar Plano</button>
+            </form>
+          </div>
+      </div>
+  )
 }
 
 export default PagamentoCliente;

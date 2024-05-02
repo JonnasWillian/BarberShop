@@ -15,7 +15,7 @@ const port = 3002; // Porta que o servidor irá escutar
 app.use(cors());
 app.use(bodyParser.json());
 
-// banco de dados
+// banco de dados e credenciais do banco
 const sequelize = new Sequelize('barbearia', 'root', '123456', {
     host: 'localhost',
     dialect: 'mysql' // Escolha o dialeto do seu banco de dados
