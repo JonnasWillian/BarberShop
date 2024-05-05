@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import Cards from 'react-credit-cards';
-import 'react-credit-cards/es/styles-compiled.css';
+import Card from 'react-credit-cards-2';
+import 'react-credit-cards-2/dist/es/styles-compiled.css';
+// import 'react-credit-cards-2/lib/styles.scss';
 
 // import { useNavigate } from 'react-router-dom';
 import './pagamento.css';
@@ -68,7 +69,7 @@ function PagamentoCliente({ props }) {
 
           <div className='cartaoCredito'>
             <div className='cartao' style={{ marginTop: '20px' }}>
-              <Cards
+              <Card
                 cvc={form.cvv}
                 expiry={form.expiracao}
                 name={form.nome}
