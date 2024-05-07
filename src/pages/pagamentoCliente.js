@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import Card from 'react-credit-cards-2';
+import Cards from 'react-credit-cards-2';
 import 'react-credit-cards-2/dist/es/styles-compiled.css';
-// import 'react-credit-cards-2/lib/styles.scss';
 
 // import { useNavigate } from 'react-router-dom';
 import './pagamento.css';
@@ -14,6 +13,9 @@ function PagamentoCliente({ props }) {
     numeroCartao: '',
     expiracao: '',
     cvv: '',
+    valor: '',
+    barbearia:'',
+    focus: '',
   });
 
   const handleChange = (e) => {
@@ -25,17 +27,19 @@ function PagamentoCliente({ props }) {
     e.preventDefault();
     try {
       // Enviar os dados do cartão para o backend
-      const response = await axios.post('http://localhost:3001/assinatura', {
+      const response = await axios.post('http://localhost:3002/assinatura', {
         nome: form.nome,
         numero_cartao: form.numeroCartao,
         expiracao: form.expiracao,
         cvv: form.cvv,
+        valor: form.valor,
+        barbearia: form.barbearia
       });
       console.log('Resposta do backend:', response.data);
       alert('Assinatura criada com sucesso!');
     } catch (error) {
       console.error('Erro ao criar assinatura:', error);
-      alert('Erro ao criar assinatura. Verifique os dados do cartão e tente novamente.');
+      alert('Erro ao criar assinatura. Verifique os dados do cartão, se preencheu as informações da barberia/plano e tente novamente.');
     }
   };
 
@@ -69,14 +73,15 @@ function PagamentoCliente({ props }) {
 
           <div className='cartaoCredito'>
             <div className='cartao' style={{ marginTop: '20px' }}>
-              <Card
+              <Cards
                 cvc={form.cvv}
                 expiry={form.expiracao}
                 name={form.nome}
                 number={form.numeroCartao}
-                focused={'number'}
+                focused={form.focus}
               />
             </div>
+
             <form className='dadosCartao uk-grid-small' onSubmit={handleSubmit}>
 
               <div className="uk-width-1-1">
@@ -101,10 +106,11 @@ function PagamentoCliente({ props }) {
                 <div className="uk-width-1-2@s">
                   <label className="uk-form-label" for="form-stacked-select">Plano</label>
                   <div className="uk-form-controls">
-                      <select className="uk-select" id="form-stacked-select">
-                          <option>Plano básico</option>
-                          <option>Plano Gold</option>
-                          <option>Plano premium</option>
+                      <select className="uk-select" name='valor' value={form.valor} onChange={handleChange} id="form-stacked-select">
+                          <option value="">Selecione uma opção</option>
+                          <option value="50,50">Plano básico</option>
+                          <option value="70,25">Plano Gold</option>
+                          <option value="99,99">Plano premium</option>
                       </select>
                   </div>
                 </div>
@@ -112,10 +118,11 @@ function PagamentoCliente({ props }) {
                 <div className="uk-width-1-2@s">
                   <label className="uk-form-label" for="form-stacked-select">Barbearia</label>
                   <div className="uk-form-controls">
-                      <select className="uk-select" id="form-stacked-select">
-                          <option>Na régua</option>
-                          <option>Barbearia do cadu</option>
-                          <option>Corte show</option>
+                      <select className="uk-select" name='barbearia' value={form.barbearia} onChange={handleChange}  id="form-stacked-select">
+                          <option value="">Selecione uma opção</option>
+                          <option value="1">Na régua</option>
+                          <option value="2">Barbearia do cadu</option>
+                          <option value="3">Corte show</option>
                       </select>
                   </div>
                 </div>

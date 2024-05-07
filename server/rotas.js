@@ -1,17 +1,6 @@
 const { Router } = require("express");
-// const {getLivros, getLivro, postLivro, pathLivro, deleteLivro} = require("../controladores/livro");
 const router = Router();
 const User = require("./estruturaBanco");
-
-// router.get('/', getLivros);
-
-// router.get('/:id', getLivro);
-
-// router.post('/', postLivro);
-
-// router.patch('/:id', pathLivro);
-
-// router.delete('/:id', deleteLivro);
 
 router.post('/cadastro', async (req, res) => {
     var tipo = req.body.tipo ? req.body.tipo : 1;
@@ -48,7 +37,5 @@ router.post('/login', async (req, res) => {
         res.status(500).json({ error: 'Erro ao buscar usuário' });
     }
 });
-
-// Criar rota do plano mercado pago
 
 module.exports = router;

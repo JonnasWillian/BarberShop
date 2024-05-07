@@ -11,11 +11,10 @@ const router = require("./server/rotas");
 
 // Configurando o servidor da API
 const app = express();
-const port = 3002; // Porta que o servidor irá escutar
+const port = 3002;
 
-// Middleware
+// Configurando Cors
 app.use(cors());
-app.use(bodyParser.json());
 
 // banco de dados e credenciais do banco
 const sequelize = new Sequelize('barbearia', 'root', '123456', {
@@ -37,41 +36,50 @@ console.log(process.env.TESTE_ACCESS_TOKEN);
 
 // Acesso ao MercadoPago
 mercadopago.configure({
-    access_token: process.env.TESTE_ACCESS_TOKEN,
+  access_token: process.env.TESTE_ACCESS_TOKEN,
 });
 
-// Middleware para permitir análise de corpos de solicitação
+// Middleware para analisar o corpo das solicitações
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+// Rota para processar o pagamento
 app.post('/assinatura', async (req, res) => {
+  console.log(req.body.nome);
+  const nome = req.body.nome;
+  const numero_cartao = req.body.numero_cartao;
+  const expiracao = req.body.expiracao;
+  const cvv = req.body.cvv;
+  const valor = req.body.valor;
+  const barbearia = req.body.barbearia;
+
+  if (valor == "" || barbearia == "") {
+    res.status(500).json({ success: false, error: 'Sem informação de planos ou barbearia selecionada' });
+  } else {
     try {
-      const { nome, numero_cartao, expiracao, cvv } = req.body;
+      // Obtenha os dados do cartão do corpo da solicitação
   
-      // Criar a assinatura no Mercado Pago
-      const assinatura = await mercadopago.preapproval.create({
-        payer_email: 'EMAIL_DO_CLIENTE', // Substitua pelo email do cliente
-        back_url: 'URL_DE_RETORNO', // URL de retorno após a compra
-        reason: 'Descrição da Assinatura',
-        external_reference: 'ID_DO_CLIENTE_OU_OUTRO_IDENTIFICADOR',
-        auto_recurring: {
-          frequency: 1, // Frequência de cobrança (1 = mensal)
-          frequency_type: 'months', // Tipo de frequência
-          transaction_amount: 100, // Valor da assinatura em centavos (R$1,00)
-          currency_id: 'BRL', // Moeda
-          start_date: new Date().toISOString(), // Data de início da assinatura
-        },
-        payment_method_id: 'visa', // Método de pagamento (opcional)
-        card_token_id: 'TOKEN_DO_CARTAO', // Token do cartão de crédito
+      // Crie o pagamento no Mercado Pago
+      const pagamento = await mercadopago.payment.create({
+        transaction_amount: parseFloat(valor), // Converta o valor para um número
+        token: numero_cartao, // Token do cartão de crédito
+        description: 'Plano de assinatura', // Descrição opcional
+        installments: 1, // Número de parcelas
+        // payment_method_id: 'visa', // Método de pagamento (opcional)
+        // payer: {
+        //   email: 'email@cliente.com', // Email do cliente (opcional)
+        // },
       });
   
-      res.json({ success: true, assinatura });
+      // Retorne a resposta do Mercado Pago
+      res.json({ success: true, pagamento });
     } catch (error) {
-      console.error('Erro ao criar assinatura:', error);
-      res.status(500).json({ success: false, error: 'Erro ao criar assinatura' });
+      console.error('Erro ao processar pagamento:', error);
+      res.status(500).json({ success: false, error: 'Erro ao processar pagamento' });
     }
-  });
-  
+  }
+
+});
 
 // Chame a função para autenticar a conexão com o banco de dados
 authenticateDatabase();
