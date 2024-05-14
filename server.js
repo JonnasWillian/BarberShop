@@ -45,13 +45,17 @@ app.use(bodyParser.json());
 
 // Rota para processar o pagamento
 app.post('/assinatura', async (req, res) => {
-  console.log(req.body.nome);
+  console.log(req.body);
   const nome = req.body.nome;
   const numero_cartao = req.body.numero_cartao;
   const expiracao = req.body.expiracao;
   const cvv = req.body.cvv;
   const valor = req.body.valor;
   const barbearia = req.body.barbearia;
+
+  if (isNaN(valor) || valor <= 0) {
+    return res.status(400).json({ success: false, error: 'Valor de pagamento inválido' });
+  }
 
   if (valor == "" || barbearia == "") {
     res.status(500).json({ success: false, error: 'Sem informação de planos ou barbearia selecionada' });

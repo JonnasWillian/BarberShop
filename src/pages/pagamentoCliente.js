@@ -108,9 +108,9 @@ function PagamentoCliente({ props }) {
                   <div className="uk-form-controls">
                       <select className="uk-select" name='valor' value={form.valor} onChange={handleChange} id="form-stacked-select">
                           <option value="">Selecione uma opção</option>
-                          <option value="50,50">Plano básico</option>
-                          <option value="70,25">Plano Gold</option>
-                          <option value="99,99">Plano premium</option>
+                          <option value="50.50">Plano básico</option>
+                          <option value="70.25">Plano Gold</option>
+                          <option value="99.99">Plano premium</option>
                       </select>
                   </div>
                 </div>
