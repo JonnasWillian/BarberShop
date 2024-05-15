@@ -6,6 +6,10 @@ const sequelize = new Sequelize('barbearia', 'root', '123456', {
 });
 
 const User = sequelize.define('Users', {
+    id_barbearia: {
+        type: DataTypes.BIGINT,
+        allowNull: false
+    },
     tipo: {
         type: DataTypes.STRING,
         allowNull: false

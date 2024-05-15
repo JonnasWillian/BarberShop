@@ -2,10 +2,13 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import Home from './pages/Home';
-import Dashboard from './pages/dashboard';
-import Entradas from './pages/entrada';
-import Clientes from './pages/clientes';
-import PagamentoCliente from './pages/pagamentoCliente';
+import Dashboard from './pages/barbearia/dashboard';
+import Entradas from './pages/barbearia/entrada';
+import Clientes from './pages/barbearia/clientes';
+import CadastrarBarbearia from './pages/clientes/cadastrarBarbearia';
+import PainelUsuario from './pages/clientes/painelUsuario';
+
+// import PagamentoCliente from './pages/pagamentoCliente';
 
 function App() {
   return (
@@ -15,7 +18,10 @@ function App() {
         <Route path="/" element={<Home/>} />
 
         {/* Página cliente */}
-        <Route path="/pagamentoCliente" element={<PagamentoCliente/>} />
+        
+        {/* <Route path="/pagamentoCliente" element={<PagamentoCliente/>} /> */}
+        <Route path="/cadastrarBarbearia" element={<CadastrarBarbearia/>} />
+        <Route path="/painelUsuario" element={<PainelUsuario/>} />
 
         {/* Página empresa */}
         <Route path="/dashboard" element={<Dashboard/>} />

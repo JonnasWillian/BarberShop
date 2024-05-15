@@ -38,8 +38,15 @@ function Home() {
 
         // console.log(data.userId, data.userName)
         if (data.exists) {
-          // history('/dashboard', { state: { userId: data.userId, userName: data.userName } }); // Redireciona para a página da empresa
-          history('/pagamentoCliente', { state: { userId: data.userId, userName: data.userName } }); // Redireciona para a página do usuário
+          if (data.tipo == 1) {
+            if (data.id_barbearia) {
+              history('/painelUsuario', { state: { userId: data.userId, userName: data.userName, id_barbearia:data.id_barbearia} }); // Redireciona para a página do usuário
+            } else {
+              history('/cadastrarBarbearia', { state: { userId: data.userId, userName: data.userName } }); // Redireciona para a página do usuário
+            }
+          } else {
+            history('/dashboard', { state: { userId: data.userId, userName: data.userName } }); // Redireciona para a página da empresa
+          }
         } else {
           setMensagem('Email ou senha incorreto.');
           setUserId(null);
