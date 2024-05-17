@@ -1,6 +1,7 @@
 const { Router } = require("express");
 const router = Router();
-const User = require("./estruturaBanco");
+const User = require("./estruturaBancoUser");
+const AgendaCorte = require("./estruturaBancoAgenda");
 
 router.post('/cadastro', async (req, res) => {
     var tipo = req.body.tipo ? req.body.tipo : 1;
@@ -37,7 +38,8 @@ router.post('/login', async (req, res) => {
     }
 });
 
-router.get('/barbearias', async (req, res) => {
+// Rotas para funções dos clientes
+router.get('/listaBarbearias', async (req, res) => {
     try {
         // Supondo que você esteja usando um ORM como Sequelize
         const barbearias = await User.findAll({ where: { tipo: 2 } });
@@ -73,5 +75,48 @@ router.post('/associarBarbearia', async (req, res) => {
         res.status(500).json({ error: 'Erro ao cadastrar usuário' });
     }
 });
+
+router.post('/dadosBarbeariaAssociada', async (req, res) => {
+    try {
+        // Supondo que você esteja usando um ORM como Sequelize
+        console.log(req.body)
+        const barbearia = await User.findAll({ where: { id: req.body.id } });
+        res.json(barbearia);
+      } catch (error) {
+        console.error('Erro ao buscar usuários:', error);
+        res.status(500).json({ error: 'Erro ao buscar usuários' });
+      }
+})
+
+router.post('/agendarCorte', async (req, res) => {
+    try {
+        // Supondo que você esteja usando um ORM como Sequelize
+        const id_barbearia = req.body.idBarbearia;
+        const id_usr = req.body.usrId;
+        const dia = req.body.dia;
+        const mes = req.body.mes;
+        
+        const novaAgenda = await AgendaCorte.create({id_barbearia, id_usr, dia, mes});
+        res.json({ message: 'Cadastro realizado com sucesso!', data: novaAgenda });
+      } catch (error) {
+        console.error('Erro ao buscar usuários:', error);
+        res.status(500).json({ error: 'Erro ao buscar usuários' });
+      }
+})
+
+router.post('/listarBarbearias', async (req, res) => {
+    const id_usr = req.body.usrId;
+    const mes = req.body.mes;
+    try {
+        // Supondo que você esteja usando um ORM como Sequelize
+        const agendasDoMesDoUsuario = await AgendaCorte.findAll({ where: {id_usr, mes} });
+        res.json(agendasDoMesDoUsuario);
+      } catch (error) {
+        console.error('Erro ao buscar usuários:', error);
+        res.status(500).json({ error: 'Erro ao buscar usuários' });
+      }
+})
+
+// Rotas para funções das barbearias
 
 module.exports = router;

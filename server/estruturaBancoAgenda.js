@@ -5,36 +5,24 @@ const sequelize = new Sequelize('barbearia', 'root', '123456', {
     dialect: 'mysql' // Escolha o dialeto do seu banco de dados
 });
 
-const User = sequelize.define('Users', {
+const AgendaCorte = sequelize.define('AgendaCorte', {
     id_barbearia: {
         type: DataTypes.BIGINT,
         allowNull: false
     },
-    tipo: {
+    id_usr: {
+        type: DataTypes.BIGINT,
+        allowNull: false
+    },
+    dia: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    nome: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    email: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true
-    },
-    telefone: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    cpf: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    senha: {
+    mes: {
         type: DataTypes.STRING,
         allowNull: false
     },
 });
 
-module.exports = User;
+// exportar mais de uma constante
+module.exports = AgendaCorte;

@@ -22,7 +22,7 @@ function CadastrarBarbearia() {
     useEffect(() => {
         async function fetchBarbearia() {
           try {
-            const response = await axios.get('http://localhost:3002/api/barbearias/');
+            const response = await axios.post('http://localhost:3002/api/listaBarbearias/');
             setBarbearia(response.data);
           } catch (error) {
             console.error('Erro ao buscar barbearias:', error);
