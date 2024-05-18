@@ -8,7 +8,7 @@ const sequelize = new Sequelize('barbearia', 'root', '123456', {
 const User = sequelize.define('Users', {
     id_barbearia: {
         type: DataTypes.BIGINT,
-        allowNull: false
+        allowNull: true
     },
     tipo: {
         type: DataTypes.STRING,
@@ -37,7 +37,7 @@ const User = sequelize.define('Users', {
     },
     pix: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
     },
 });
 
