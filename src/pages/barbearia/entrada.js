@@ -1,8 +1,21 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Importe o useHistory do React Router
+import { useNavigate, useLocation } from 'react-router-dom';
 import './dashboard.css'; // Importe o arquivo de estilos do dashboard
 
-function Entradas({ username }) {
+function Entradas({props}) {
+    const location = useLocation();
+    const info = location.state;
+    console.log(info)
+
+    const history = useNavigate();
+    const navegarDashboard = () => {
+      history('/dashboard', { state: { userId: info.userId, userName: info.userName } }); // Redireciona para a página do usuário
+    };
+  
+    const navegarClientes = () => {
+      history('/clientes', { state: { userId: info.userId, userName: info.userName } }); // Redireciona para a página do usuário
+    };
+
     return (
         <div className='dashboard'>
             <div className="sidebar">
@@ -12,9 +25,9 @@ function Entradas({ username }) {
                     <button><i className="fa fa-search"></i></button>
                 </div>
                 <ul>
-                    <li><a href='/dashboard'>Visão Geral</a></li>
+                    <li><a onClick={navegarDashboard}>Visão Geral</a></li>
                     <li><a href='/entradas'>Entradas</a></li>
-                    <li><a href='/clientes'>Clientes</a></li>
+                    <li><a onClick={navegarClientes}>Clientes</a></li>
                     <li>Agenda</li>
                 </ul>
                 <div className="config">
@@ -25,12 +38,9 @@ function Entradas({ username }) {
                 <div className="welcome">
                     <h1></h1>
                     <div className="profile">
-                        <button className="add-collaborator"><b>+  Adicionar Colaborador</b></button>
                         <div>
-                            <p>Nome da Barbearia</p>
-                            <p>Administrador</p>
+                            <p>{info.userName}</p>
                         </div>
-                        <img src="profile.jpg" alt="Perfil" />
                     </div>
                 </div>
                 <hr />

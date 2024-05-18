@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Importe o useHistory do React Router
+import { useNavigate } from 'react-router-dom';
 import image from "../images/barbershop.jpg";
 import imagenoivo from "../images/noivo.jpg";
 import RegisterForm from './Registerform';

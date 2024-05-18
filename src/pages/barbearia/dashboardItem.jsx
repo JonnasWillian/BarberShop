@@ -8,7 +8,7 @@ function DashboardItem({ title, value, color }) {
       <div className="dashboard-item" style={{ backgroundColor: color }}>
         <h3>{title}</h3>
         <p>{value}</p>
-        <a href="#" className="see-more">Ver histórico</a>
+        {/* <a href="#" className="see-more">Ver histórico</a> */}
       </div>
     );
   }

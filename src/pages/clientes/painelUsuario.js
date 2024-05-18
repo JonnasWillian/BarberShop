@@ -20,6 +20,7 @@ function PainelUsuario() {
 
     useEffect(() => {
         fetchData();
+        fetchBarbearia(date.getMonth() + 1);
     }, []);    
 
     const fetchData = async () => {
@@ -39,7 +40,7 @@ function PainelUsuario() {
 
     const handleDateChange = (selectedDate) => {
         setDate(selectedDate);
-        console.log('Data marcada:', selectedDate);
+        fetchBarbearia(selectedDate.getMonth() + 1);
     };
 
     const handleConfirm = async (e) => {
@@ -52,7 +53,7 @@ function PainelUsuario() {
             dia: date.getDate(),
             mes:date.getMonth() + 1
           });
-          console.log('Cadastro realizado!');
+          fetchBarbearia(date.getMonth() + 1);
         } catch (error) {
           console.log(error);
           alert('Erro ao atualizar! Selecione uma opção de barbearia');
@@ -62,18 +63,14 @@ function PainelUsuario() {
     // Buscar agendas do mês
     const [agendaDoMes, setAgendaDoMes] = useState([]);
 
-    useEffect(() => {
-        async function fetchBarbearia() {
-            try {
-                const response = await axios.post('http://localhost:3002/api/listarBarbearias/', {usrId: info.userId, mes:date.getMonth() + 1});
-                setAgendaDoMes(response.data);
-            } catch (error) {
-                console.error('Erro ao buscar barbearias:', error);
-            }
+    const fetchBarbearia = async (mes) => {
+        try {
+            const response = await axios.post('http://localhost:3002/api/listarBarbearias/', {usrId: info.userId, mes});
+            setAgendaDoMes(response.data);
+        } catch (error) {
+            console.error('Erro ao buscar barbearias:', error);
         }
-    
-        fetchBarbearia();
-    }, []);
+    }
 
     return(
         <div className="painelUsuario">
@@ -98,6 +95,7 @@ function PainelUsuario() {
                                     <Calendar
                                         onChange={handleDateChange}
                                         value={date}
+                                        locale="pt-BR"
                                     />
 
                                     <br/><br/>
@@ -110,8 +108,8 @@ function PainelUsuario() {
                                 <div>
                                     <h2>Data marcada:</h2>
                                     {agendaDoMes.map(agenda => (
-                                    <p>Data agendada: {agenda.dia} / {agenda.mes}</p>
-                                ))}
+                                        <p>Data agendada: {agenda.dia} / {agenda.mes}</p>
+                                    ))}
                                 </div>
                             </div>
                         </div>

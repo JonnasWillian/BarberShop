@@ -1,7 +1,8 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
-import './dashboard.css'; // Importe o arquivo de estilos do dashboard
+import { useLocation, useNavigate} from 'react-router-dom';
 import DashboardItem from './dashboardItem';
+
+import './dashboard.css'; // Importe o arquivo de estilos do dashboard
 import "chart.js/auto";
 import { Line } from "react-chartjs-2";
 
@@ -23,16 +24,22 @@ const data = {
 function Dashboard({ props }) {
   const location = useLocation();
   const info = location.state;
-  console.log(info);
-
+  console.log(info)
 
   if (info === null) {
       // Se não houver informações, redireciona para a tela inicial
       window.location.href = "./";
   }
 
-  var nome = location.state.userName;
-  var id = location.state.userId;
+  const history = useNavigate();
+  const navegarEntrada = () => {
+    history('/entradas', { state: { userId: info.userId, userName: info.userName } }); // Redireciona para a página do usuário
+  };
+
+  const navegarClientes = () => {
+    history('/clientes', { state: { userId: info.userId, userName: info.userName } }); // Redireciona para a página do usuário
+  };
+
 
   return (
     <div className="dashboard">
@@ -44,16 +51,16 @@ function Dashboard({ props }) {
         </div>
         <ul>
           <li><a href='/dashboard'>Visão Geral</a></li>
-          <li><a href='/entradas'>Entradas</a></li>
-          <li><a href='/clientes'>Clientes</a></li>
+          <li onClick={navegarEntrada}><a>Entradas</a></li>
+          <li onClick={navegarClientes}><a>Clientes</a></li>
           <li>Agenda</li>
         </ul>
       </div>
       <div className="content">
         <div className="welcome">
-          <h1>Bem-vindo {nome}!</h1>
+          <h1>Bem-vindo {info.userName}!</h1>
           <div className="profile">
-          <button className="add-collaborator"><b>+  Adicionar Colaborador</b></button>
+          {/* <button className="add-collaborator"><b>+  Adicionar Colaborador</b></button> */}
           </div>
         </div>
         <hr />
@@ -67,7 +74,7 @@ function Dashboard({ props }) {
           <div className='cards-com-grafico'>
             <div className='infos'>
               <DashboardItem title="Total de Membros" value="30" color="#7ED957" />
-              <DashboardItem title="Total de Membros Inativos" value="5" color="#FF5757" />
+              {/* <DashboardItem title="Total de Membros Inativos" value="5" color="#FF5757" /> */}
             </div>
             <div className='grafico'>
               <Line data={data} />
