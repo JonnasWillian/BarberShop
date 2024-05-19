@@ -121,27 +121,17 @@ header .menu-right ul li button {
   padding: 10px 20px;
   cursor: pointer;
   border-radius: 5px;
+  margin-right: 20px;
 }
-
+.orange-button:hover{
+  background: #b4b0b0;
+}
 /* Estilos para o modal */
-.modal {
-  
-  width: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1001;
-}
+/* Adicione as seguintes regras CSS ao seu App.css */
 
-.modal-content {
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  width: 80%;
-  max-width: 500px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
+
+
+
 
 .sobre{
   background-color: #161616;
