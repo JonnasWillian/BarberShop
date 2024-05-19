@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import './dashboard.css'; // Importe o arquivo de estilos do dashboard
+import './dashboard.css';
 
 function Clientes({ props }) {
     const location = useLocation();
@@ -9,11 +9,11 @@ function Clientes({ props }) {
 
     const history = useNavigate();
     const navegarDashboard = () => {
-      history('/dashboard', { state: { userId: info.userId, userName: info.userName } }); // Redireciona para a página do usuário
+      history('/dashboard', { state: { userId: info.userId, userName: info.userName } }); 
     };
   
     const navegarEntrada = () => {
-      history('/entradas', { state: { userId: info.userId, userName: info.userName } }); // Redireciona para a página do usuário
+      history('/entradas', { state: { userId: info.userId, userName: info.userName } });
     };
 
     return (

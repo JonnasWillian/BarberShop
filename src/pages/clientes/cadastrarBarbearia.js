@@ -7,7 +7,6 @@ import './styleCadBarbearia.css';
 function CadastrarBarbearia() {
     const location = useLocation();
     const info = location.state;
-    console.log(info.userId);
 
     if (info === null) {
         // Se não houver informações, redireciona para a tela inicial
@@ -22,7 +21,8 @@ function CadastrarBarbearia() {
     useEffect(() => {
         async function fetchBarbearia() {
           try {
-            const response = await axios.post('http://localhost:3002/api/listaBarbearias/');
+            const response = await axios.get('http://localhost:3002/api/listaBarbearias/');
+            console.log(response)
             setBarbearia(response.data);
           } catch (error) {
             console.error('Erro ao buscar barbearias:', error);
