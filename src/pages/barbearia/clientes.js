@@ -2,7 +2,7 @@ import React, { useState, useEffect}  from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 
-import './dashboard.css'; // Importe o arquivo de estilos do dashboard
+import './dashboard.css';
 
 function Clientes({ props }) {
     const location = useLocation();
@@ -39,6 +39,7 @@ function Clientes({ props }) {
         } catch (error) {
             console.log(error);
         }
+
     };
 
     return (
