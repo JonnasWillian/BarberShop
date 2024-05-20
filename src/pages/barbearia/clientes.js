@@ -1,29 +1,50 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect}  from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import axios from 'axios';
+
 import './dashboard.css'; // Importe o arquivo de estilos do dashboard
 
 function Clientes({ props }) {
     const location = useLocation();
     const info = location.state;
-    console.log(info)
 
+    if (info === null) {
+        // Se não houver informações, redireciona para a tela inicial
+        window.location.href = "./";
+    }
+
+    // Redirecionamento
     const history = useNavigate();
     const navegarDashboard = () => {
-      history('/dashboard', { state: { userId: info.userId, userName: info.userName } }); // Redireciona para a página do usuário
+      history('/dashboard', { state: { userId: info.userId, userName: info.userName } });
     };
   
     const navegarEntrada = () => {
-      history('/entradas', { state: { userId: info.userId, userName: info.userName } }); // Redireciona para a página do usuário
+      history('/entradas', { state: { userId: info.userId, userName: info.userName } });
+    };
+
+    // Função de pegar os membros
+    const [membros, setMembros] = useState([]);
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+    const fetchData = async () => {
+        try {
+            const response = await axios.post('http://localhost:3002/api/membrosBarbearia', {
+            id: info.userId
+        });
+            const result = await response.data;
+            setMembros(result);
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     return (
         <div className='dashboard'>
             <div className="sidebar">
                 <h2>Barbearia</h2>
-                <div className="search">
-                    <input type="text" placeholder="Pesquisar" />
-                    <button><i className="fa fa-search"></i></button>
-                </div>
                 <ul>
                     <li><a onClick={navegarDashboard}>Visão Geral</a></li>
                     <li><a onClick={navegarEntrada}>Entradas</a></li>
@@ -49,33 +70,20 @@ function Clientes({ props }) {
                             <tr>
                                 <th>Cliente</th>
                                 <th>Status</th>
-                                {/* <th>último corte</th> */}
                                 <th>Telefone</th>
-                                <th>Valor plano</th>
+                                <th>Email</th>
+                                {/* <th>Valor plano</th> */}
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Pedro</td>
-                                <td>Assinante</td>
-                                {/* <td>04/02/24 - 09:30</td> */}
-                                <td>479596565645</td>
-                                <td>Gold</td>
-                            </tr>
-                            <tr>
-                                <td>Carlos</td>
-                                <td>Assinante</td>
-                                {/* <td>26/03/24 - 14:30</td> */}
-                                <td>479596565645</td>
-                                <td>Clássico</td>
-                            </tr>
-                            <tr>
-                                <td>Tiago</td>
-                                <td>Assinante</td>
-                                {/* <td>24/03/24 - 11:45</td> */}
-                                <td>479596565645</td>
-                                <td>Pro</td>
-                            </tr>
+                            {membros.map(membro => (
+                                <tr>
+                                    <td>{membro.nome}</td>
+                                    <td>Assinante</td>
+                                    <td>{membro.telefone}</td>
+                                    <td>{membro.email}</td>
+                                </tr>
+                            ))}
                         </tbody>
                     </table>
                 </div>

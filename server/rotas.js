@@ -2,6 +2,7 @@ const { Router } = require("express");
 const router = Router();
 const User = require("./estruturaBancoUser");
 const AgendaCorte = require("./estruturaBancoAgenda");
+const CortesAvulsos = require("./estruturaCortes");
 
 router.post('/cadastro', async (req, res) => {
     var tipo = req.body.tipo ? req.body.tipo : 1;
@@ -41,7 +42,6 @@ router.post('/login', async (req, res) => {
 // Rotas para funções dos clientes
 router.get('/listaBarbearias', async (req, res) => {
     try {
-        // Supondo que você esteja usando um ORM como Sequelize
         const barbearias = await User.findAll({ where: { tipo: 2 } });
         res.json(barbearias);
       } catch (error) {
@@ -78,7 +78,6 @@ router.post('/associarBarbearia', async (req, res) => {
 
 router.post('/dadosBarbeariaAssociada', async (req, res) => {
     try {
-        // Supondo que você esteja usando um ORM como Sequelize
         console.log(req.body)
         const barbearia = await User.findAll({ where: { id: req.body.id } });
         res.json(barbearia);
@@ -90,7 +89,6 @@ router.post('/dadosBarbeariaAssociada', async (req, res) => {
 
 router.post('/agendarCorte', async (req, res) => {
     try {
-        // Supondo que você esteja usando um ORM como Sequelize
         const id_barbearia = req.body.idBarbearia;
         const id_usr = req.body.usrId;
         const dia = req.body.dia;
@@ -108,7 +106,6 @@ router.post('/listarBarbearias', async (req, res) => {
     const id_usr = req.body.usrId;
     const mes = req.body.mes;
     try {
-        // Supondo que você esteja usando um ORM como Sequelize
         const agendasDoMesDoUsuario = await AgendaCorte.findAll({ where: {id_usr, mes} });
         res.json(agendasDoMesDoUsuario);
       } catch (error) {
@@ -118,5 +115,65 @@ router.post('/listarBarbearias', async (req, res) => {
 })
 
 // Rotas para funções das barbearias
+router.post('/membrosBarbearia', async (req, res) => {
+    const id_barbearia = req.body.id;
+    try {
+        const membros = await User.findAll({ where: {id_barbearia} });
+        res.json(membros);
+      } catch (error) {
+        console.error('Erro ao buscar usuários:', error);
+        res.status(500).json({ error: 'Erro ao buscar usuários' });
+      }
+})
+
+router.post('/cadastrarCorte', async (req, res) => {
+    const id_barbearia = req.body.id_barbearia;
+    const data = req.body.dataAtual;
+    const descricao = req.body.corte;
+    const barbeiro = req.body.barbeiro;
+    const mes = req.body.month;
+    const ano = req.body.year;
+    const cliente = req.body.cliente;
+    const formaPagamento = req.body.pagamento;
+    const preco = req.body.preco;
+    const comissao = req.body.comissao;
+    console.log(req.body);
+
+    try {
+        const newUser = await CortesAvulsos.create({id_barbearia, mes, ano, descricao, data, barbeiro, cliente, formaPagamento, preco, comissao});
+        res.json({ message: 'Cadastro do corte realizado com sucesso!', data: newUser });
+    } catch (error) {
+        console.error('Erro ao cadastrar usuário:', error);
+        res.status(500).json({ error: 'Erro ao cadastrar o corte, verifique os dados inseridos' });
+    }
+});
+
+router.post('/buscarCortesBarbearia', async (req, res) => {
+    const id_barbearia = req.body.id;
+    const mes = req.body.mes;
+    const ano = req.body.ano;
+
+    try {
+        const cortes = await CortesAvulsos.findAll({ where: {id_barbearia, mes, ano} });
+        res.json(cortes);
+      } catch (error) {
+        console.error('Erro ao buscar usuários:', error);
+        res.status(500).json({ error: 'Erro ao buscar usuários' });
+      }
+})
+
+router.post('/buscarCortesDoMes', async (req, res) => {
+  const id_barbearia = req.body.id_barbearia;
+  const mes = req.body.mes;
+  const ano = req.body.ano;
+
+  try {
+      const cortes = await CortesAvulsos.findAll({ where: {id_barbearia, mes, ano} });
+      res.json(cortes);
+    } catch (error) {
+      console.error('Erro ao buscar usuários:', error);
+      res.status(500).json({ error: 'Erro ao buscar usuários' });
+    }
+})
 
 module.exports = router;
