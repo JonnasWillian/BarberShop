@@ -17,7 +17,7 @@ const port = 3002;
 app.use(cors());
 
 // banco de dados e credenciais do banco
-const sequelize = new Sequelize('barbearia', 'root', 'root', {
+const sequelize = new Sequelize('barbearia', 'root', '123456', {
     host: 'localhost',
     dialect: 'mysql' // Escolha o dialeto do seu banco de dados
 });
