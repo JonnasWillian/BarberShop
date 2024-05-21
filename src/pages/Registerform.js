@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './Registerform.css';
 import InputMask from 'react-input-mask';
 
-function RegisterForm({ userType, setIsBarbearia, closeModal, toggleFormType, isBarbearia, showPixInput }) {
+function RegisterForm({ userType, setIsBarbearia, closeModal, toggleFormType, isBarbearia, showPixInput, handleUserTypeSelection}) {
     const [nome, setNome] = useState('');
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
@@ -11,18 +11,20 @@ function RegisterForm({ userType, setIsBarbearia, closeModal, toggleFormType, is
     const [mensagem, setMensagem] = useState('');
     const [pix, setPix] = useState('');
     const handlePixChange = (e) => {
-      setPix(e.target.value);
-  };
+        setPix(e.target.value);
+    };
+
+    const tipo = handleUserTypeSelection;
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         try {
             const response = await fetch('http://localhost:3002/api/cadastro', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ nome,  email, senha, cpf, telefone, tipo: userType, pix }) // Envia o tipo de usuário para o backend
+                body: JSON.stringify({ nome,  email, senha, cpf, telefone, tipo, pix }) // Envia o tipo de usuário para o backend
             });
 
             const data = await response.json();
@@ -31,8 +33,7 @@ function RegisterForm({ userType, setIsBarbearia, closeModal, toggleFormType, is
             console.error('Erro ao enviar solicitação:', error);
         }
     };
-   
-  
+
     return (
         <div className="modal-content">
             <h2>Cadastre-se</h2>
@@ -61,11 +62,10 @@ function RegisterForm({ userType, setIsBarbearia, closeModal, toggleFormType, is
                 <div className="textbox">
                     <input type="password" value={senha} onChange={(e) => setSenha(e.target.value)} placeholder="Senha" name="password" id="password" autoComplete="new-password" required />
                 </div>
-                {console.log("Valor de isBarbearia:", isBarbearia)}
-                {isBarbearia && ( // Mostrar o campo PIX apenas se isBarbearia for true
+
+                {tipo==2 && ( // Mostrar o campo PIX apenas se isBarbearia for true
                     <div className="form-group">
-                        <label htmlFor="pix">PIX</label>
-                        <input type="text" id="pix" name="pix" value={pix} onChange={handlePixChange} />
+                        <input type="text" placeholder='Pix' id="pix" name="pix" value={pix} onChange={handlePixChange} required/>
                     </div>
                 )}
 

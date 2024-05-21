@@ -15,12 +15,27 @@ function PainelUsuario() {
         window.location.href = "./";
     }
 
+    const dataMes = new Date();
+    const dataAno = dataMes.getFullYear();
+
+    // Buscar agendas do mês
+    const [agendaDoMes, setAgendaDoMes] = useState([]);
+
+    const fetchBarbearia = async (mes, ano) => {
+        try {
+            const response = await axios.post('http://localhost:3002/api/listarBarbearias/', {usrId: info.userId, mes, ano});
+            setAgendaDoMes(response.data);
+        } catch (error) {
+            console.error('Erro ao buscar barbearias:', error);
+        }
+    }
+
     // Função da busca dos dados da barbearia associada
     const [barbearia, setBarbearia] = useState('');
 
     useEffect(() => {
         fetchData();
-        fetchBarbearia(date.getMonth() + 1);
+        fetchBarbearia(date.getMonth() + 1, date.getFullYear());
     }, []);    
 
     const fetchData = async () => {
@@ -37,10 +52,11 @@ function PainelUsuario() {
 
     // Função de cadastrar agendamento
     const [date, setDate] = useState(new Date());
+    const [hora, setHora] = useState(dataAno);
 
     const handleDateChange = (selectedDate) => {
         setDate(selectedDate);
-        fetchBarbearia(selectedDate.getMonth() + 1);
+        fetchBarbearia(selectedDate.getMonth() + 1, dataAno);
     };
 
     const handleConfirm = async (e) => {
@@ -51,26 +67,16 @@ function PainelUsuario() {
             usrId: info.userId,
             idBarbearia: info.id_barbearia,
             dia: date.getDate(),
-            mes:date.getMonth() + 1
+            mes:date.getMonth() + 1,
+            ano:date.getFullYear(),
+            hora: hora
           });
-          fetchBarbearia(date.getMonth() + 1);
+          fetchBarbearia(date.getMonth() + 1, date.getFullYear());
         } catch (error) {
           console.log(error);
           alert('Erro ao atualizar! Selecione uma opção de barbearia');
         }
     };
-
-    // Buscar agendas do mês
-    const [agendaDoMes, setAgendaDoMes] = useState([]);
-
-    const fetchBarbearia = async (mes) => {
-        try {
-            const response = await axios.post('http://localhost:3002/api/listarBarbearias/', {usrId: info.userId, mes});
-            setAgendaDoMes(response.data);
-        } catch (error) {
-            console.error('Erro ao buscar barbearias:', error);
-        }
-    }
 
     return(
         <div className="painelUsuario">
@@ -99,16 +105,16 @@ function PainelUsuario() {
                                     />
 
                                     <br/><br/>
-                                    <form onSubmit={handleConfirm}>
-                                        <input type='hidden'/>
-                                        <input className="btn-envio" type='submit' value="confirmar"/>
+                                    <form onSubmit={handleConfirm} className='hora'>
+                                        <input className="espaco" value={hora} onChange={(e) => setHora(e.target.value)} type='time'required/>
+                                        <input className="btn-envio espaco" type='submit' value="confirmar"/>
                                     </form>
                                 </div>
-                                <h2>Data selecionada: {date.getDate()} / {date.getMonth() + 1}</h2>
+                                <h2>Data selecionada: {date.getDate()}/{date.getMonth() + 1}/{date.getFullYear()} {hora}</h2>
                                 <div>
                                     <h2>Data marcada:</h2>
                                     {agendaDoMes.map(agenda => (
-                                        <p>Data agendada: {agenda.dia} / {agenda.mes}</p>
+                                        <p>Data agendada: {agenda.dia}/{agenda.mes} {agenda.horas}</p>
                                     ))}
                                 </div>
                             </div>

@@ -31,6 +31,10 @@ function Dashboard({ props }) {
     history('/clientes', { state: { userId: info.userId, userName: info.userName } }); // Redireciona para a página do usuário
   };
 
+  const navegarAgenda = () => {
+      history('/agenda', { state: { userId: info.userId, userName: info.userName } }); // Redireciona para a página do usuário
+  };
+
   // Função de pegar os membros
   const [membros, setMembros] = useState('');
   useEffect(() => {
@@ -111,9 +115,10 @@ function Dashboard({ props }) {
           <li><a href='/dashboard'>Visão Geral</a></li>
           <li onClick={navegarEntrada}><a>Entradas</a></li>
           <li onClick={navegarClientes}><a>Clientes</a></li>
-          <li>Agenda</li>
+          <li onClick={navegarAgenda}><a>Agenda</a></li>
         </ul>
       </div>
+
       <div className="content">
         <div className="welcome">
           <h1>Bem-vindo {info.userName}!</h1>

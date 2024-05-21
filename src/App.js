@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import Dashboard from './pages/barbearia/dashboard';
 import Entradas from './pages/barbearia/entrada';
 import Clientes from './pages/barbearia/clientes';
+import Agenda from './pages/barbearia/agenda';
 import CadastrarBarbearia from './pages/clientes/cadastrarBarbearia';
 import PainelUsuario from './pages/clientes/painelUsuario';
 
@@ -27,6 +28,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard/>} />
         <Route path="/entradas" element={<Entradas/>} />
         <Route path="/clientes" element={<Clientes/>} />
+        <Route path="/agenda" element={<Agenda/>} />
       </Routes>
     </Router>
   );

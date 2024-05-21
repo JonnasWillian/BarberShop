@@ -23,6 +23,10 @@ function Clientes({ props }) {
       history('/entradas', { state: { userId: info.userId, userName: info.userName } });
     };
 
+    const navegarAgenda = () => {
+        history('/agenda', { state: { userId: info.userId, userName: info.userName } }); // Redireciona para a página do usuário
+    };
+
     // Função de pegar os membros
     const [membros, setMembros] = useState([]);
     useEffect(() => {
@@ -50,7 +54,7 @@ function Clientes({ props }) {
                     <li><a onClick={navegarDashboard}>Visão Geral</a></li>
                     <li><a onClick={navegarEntrada}>Entradas</a></li>
                     <li><a href='/clientes'>Clientes</a></li>
-                    <li>Agenda</li>
+                    <li onClick={navegarAgenda}><a>Agenda</a></li>
                 </ul>
             </div>
 

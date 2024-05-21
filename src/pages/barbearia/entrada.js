@@ -29,6 +29,10 @@ function Entradas({props}) {
       history('/clientes', { state: { userId: info.userId, userName: info.userName } });
     };
 
+    const navegarAgenda = () => {
+        history('/agenda', { state: { userId: info.userId, userName: info.userName } }); // Redireciona para a página do usuário
+    };
+
     // Modal
     const [modalOpen, setModalOpen] = useState(false);
     const openModal = () => {
@@ -81,7 +85,7 @@ function Entradas({props}) {
                     <li><a onClick={navegarDashboard}>Visão Geral</a></li>
                     <li><a href='/entradas'>Entradas</a></li>
                     <li><a onClick={navegarClientes}>Clientes</a></li>
-                    <li>Agenda</li>
+                    <li onClick={navegarAgenda}><a>Agenda</a></li>
                 </ul>
                 <div className="config">
                 </div>

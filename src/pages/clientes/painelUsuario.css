@@ -265,6 +265,15 @@ h3{
 	text-transform: uppercase;
 }
 
+.hora{
+	display: flex;
+	padding: 20px;
+}
+
+.espaco{
+	margin: 10px;
+}
+
 @media (max-width: 1180px){
 	.test-results .content-container .general-scores, .test-results .content-container .personal-comments{
 		width: 100%;

@@ -133,11 +133,13 @@ function Home() {
                                 mensagem={mensagem}
                                 closeModal={closeModal}
                                 toggleFormType={toggleFormType}
+                                handleUserTypeSelection={userType}
                             />
                         ) : (
                             <RegisterForm
                                 closeModal={closeModal}
                                 toggleFormType={toggleFormType}
+                                handleUserTypeSelection={userType}
                             />
                         )}
                     </div>
