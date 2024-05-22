@@ -65,7 +65,7 @@ function Home() {
                         navigate('/cadastrarBarbearia', { state: { userId: data.userId, userName: data.userName } });
                     }
                 } else {
-                    if (data.plano_assinado == 1) {
+                    if (data.plano_assinado) {
                       navigate('/dashboard', { state: { userId: data.userId, userName: data.userName } });
                     } else {
                       navigate('/pagamentoCliente', { state: { userId: data.userId, userName: data.userName } });

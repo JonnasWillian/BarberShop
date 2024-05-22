@@ -281,9 +281,14 @@ router.post('/pagamento', async (req, res) => {
 
 router.post('/registrarAssinatura', async (req, res) => {
   const id_plano = req.body.id_plano;
+
+  const date = new Date();
+  const mes = String(date.getMonth() + 1).padStart(2, ''); // Janeiro é 0!
+  const ano = date.getFullYear();
+
   try {
       User.update(
-        { plano_assinado: 1 }, // Novo valor da idade
+        { plano_assinado: mes + '/' + ano}, // Novo valor da idade
         { where: { id_plano: id_plano } } // Condição para selecionar o usuário com id igual a 1
       )
 
