@@ -65,7 +65,11 @@ function Home() {
                         navigate('/cadastrarBarbearia', { state: { userId: data.userId, userName: data.userName } });
                     }
                 } else {
-                    navigate('/dashboard', { state: { userId: data.userId, userName: data.userName } });
+                    if (data.plano_assinado == 1) {
+                      navigate('/dashboard', { state: { userId: data.userId, userName: data.userName } });
+                    } else {
+                      navigate('/pagamentoCliente', { state: { userId: data.userId, userName: data.userName } });
+                    }
                 }
             } else {
                 setMensagem('Email ou senha incorreto.');

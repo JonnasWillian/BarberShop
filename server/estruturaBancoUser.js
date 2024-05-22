@@ -39,6 +39,14 @@ const User = sequelize.define('Users', {
         type: DataTypes.STRING,
         allowNull: true
     },
+    id_plano: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    plano_assinado: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
 });
 
 // exportar mais de uma constante

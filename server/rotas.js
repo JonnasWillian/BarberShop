@@ -1,20 +1,41 @@
 const { Router } = require("express");
+const mercadopago = require('mercadopago');
+require('dotenv').config();
 const router = Router();
+
+// Bancos de dados
 const User = require("./estruturaBancoUser");
 const AgendaCorte = require("./estruturaBancoAgenda");
 const CortesAvulsos = require("./estruturaCortes");
-
 const { Sequelize } = require('sequelize');
+
+// Sincronizando tabelas
 const sequelize = new Sequelize('barbearia', 'root', '123456', {
   host: 'localhost',
   dialect: 'mysql' // Escolha o dialeto do seu banco de dados
 });
+
 sequelize.sync({ force: true }).then(() => {
   console.log('Tabelas sincronizadas');
 }).catch(err => {
   console.error('Erro ao sincronizar tabelas:', err);
 });
 
+// Testar conexão mercado pago
+async function createPlan(plan, attempts = 3) {
+  while (attempts > 0) {
+    try {
+      const response = await mercadopago.preapproval.create(plan);
+      return response;
+    } catch (error) {
+      if (attempts === 1 || !error.message.includes('getaddrinfo EAI_AGAIN')) {
+        throw error;
+      }
+      attempts--;
+      console.log(`Retrying... ${attempts} attempts left`);
+    }
+  }
+}
 
 router.post('/cadastro', async (req, res) => {
     var tipo = req.body.tipo ? req.body.tipo : 1;
@@ -41,7 +62,7 @@ router.post('/login', async (req, res) => {
         const user = await User.findOne({ where: { email, senha } });
 
         if (user) {
-            res.json({ exists: true, message: 'Usuário encontrado.', userId: user.id, userName: user.nome, tipo: user.tipo, id_barbearia:user.id_barbearia});
+            res.json({ exists: true, message: 'Usuário encontrado.', userId: user.id, userName: user.nome, tipo: user.tipo, id_barbearia:user.id_barbearia, plano_assinado: user.plano_assinado});
         } else {
             res.json({ exists: false, message: 'Usuário não encontrado.' });
         }
@@ -205,6 +226,70 @@ router.post('/listarAgendaCortesBarbearias', async (req, res) => {
         }]
       });
       res.json(agendasDoMesDoUsuario);
+    } catch (error) {
+      console.error('Erro ao buscar usuários:', error);
+      res.status(500).json({ error: 'Erro ao buscar usuários' });
+    }
+})
+
+mercadopago.configurations.setAccessToken(process.env.TESTE_ACCESS_TOKEN);
+
+router.post('/pagamento', async (req, res) => {
+  const formatDate = (date) => {
+    return date.toISOString().split('.')[0] + '.000-00:00';
+  };
+
+  const id = req.body.id;
+  const email = req.body.email
+  const inicioPlano = formatDate(new Date());
+  const fimPlano = formatDate(new Date(new Date().setFullYear(new Date().getFullYear() + 1)));
+
+  // Criar um plano
+  const plan = {
+    reason: "Plano mensal da barbearia",
+    description: "Acesso ao sistema de gerenciamento de cortes",
+    auto_recurring: {
+      frequency: 1,
+      frequency_type: "months",
+      transaction_amount: 60,
+      currency_id: 'BRL',
+      start_date: inicioPlano,
+      end_date: fimPlano
+    },
+    payer_email: email,
+    back_url: new URL('https://devscody.web.app/').toString(),
+  };
+
+  try {
+    const response = await createPlan(plan);
+
+    User.update(
+      { id_plano: response.body.id }, // Novo valor da idade
+      { where: { id: id } } // Condição para selecionar o usuário com id igual a 1
+    )
+
+    res.json({
+      id: response.body.id,
+      init_point: response.body.init_point,
+      dadosTotais:response.body
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+router.post('/registrarAssinatura', async (req, res) => {
+  const id_plano = req.body.id_plano;
+  try {
+      User.update(
+        { plano_assinado: 1 }, // Novo valor da idade
+        { where: { id_plano: id_plano } } // Condição para selecionar o usuário com id igual a 1
+      )
+
+      const usuario = await User.findAll({ where: {id_plano} });
+      console.log(usuario)
+      res.json(usuario);
     } catch (error) {
       console.error('Erro ao buscar usuários:', error);
       res.status(500).json({ error: 'Erro ao buscar usuários' });
