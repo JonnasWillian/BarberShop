@@ -251,7 +251,7 @@ router.post('/pagamento', async (req, res) => {
     auto_recurring: {
       frequency: 1,
       frequency_type: "months",
-      transaction_amount: 60,
+      transaction_amount: 1,
       currency_id: 'BRL',
       start_date: inicioPlano,
       end_date: fimPlano

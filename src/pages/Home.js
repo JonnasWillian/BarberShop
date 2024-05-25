@@ -94,7 +94,7 @@ function Home() {
         <div className="App">
                    <header>
                 <div className=" menu-left logo">
-                    <h1>La firma</h1>
+                    <h1>Corte certo</h1>
                     <ul className="menu-left">
                     <li> <a href="#">Sobre</a></li>
                         <li><a href="#">Contato</a></li>
@@ -112,7 +112,7 @@ function Home() {
             <div className="background">
              
                 <div className="welcome-message">
-                    <h1>Bem-vindo à La Firma</h1>
+                    <h1>Bem-vindo à Corte certo</h1>
                     <p>Seu lugar para cortes de cabelo, barba e muito mais!</p>
                     <button className="orange-button"onClick={openModal}>Entrar</button>
                 </div>
@@ -154,13 +154,12 @@ function Home() {
           <img src={image} alt='Imagem' />
         </div>
         <div className='text-about'>
-          <h2>La Firma</h2>
+          <h2>Corte certo</h2>
           <h3>Música, Network e Brêja</h3>
           <p>
             Os consagrados cortes com tesoura, navalha e toalha quente estão de volta e provam que o bem estar da sua pele precisa estar em primeiro lugar. Além é claro, coloração, manicure, estética facial, relaxamento, selagem/progressiva e diversas opções de bebidas artesanais e bebidas quentes. Chegou a revolução da barba e você não vai querer ficar de fora!
           </p>
           <h3>Use #EstiloLafirma nas redes sociais.</h3>
-          <a href='#'><button className='saibamais'> Conheça Mais</button></a>
         </div>
       </main>
 
@@ -229,18 +228,20 @@ function Home() {
 
       <section className='news'>
         <div className='text-news'>
-          <h2>La Firma</h2>
+          <h2>Corte certo</h2>
           <h3>Música, Network e Brêja</h3>
           <p>
             Os consagrados cortes com tesoura, navalha e toalha quente estão de volta e provam que o bem estar da sua pele precisa estar em primeiro lugar. Além é claro, coloração, manicure, estética facial, relaxamento, selagem/progressiva e diversas opções de bebidas artesanais e bebidas quentes. Chegou a revolução da barba e você não vai querer ficar de fora!
           </p>
-          <h3>Use #EstiloLafirma nas redes sociais.</h3>
-          <a href='#'><button className='saibamais'> Conheça Mais</button></a>
         </div>
         <div className='image-news'>
           <img src={imagenoivo} alt='Imagem' />
         </div>
       </section>
+
+      <footer>
+			  Copyright <a target='_blanck' href='https://devscody.web.app/'>DevsCody</a> ₢ 2024
+		  </footer>
     </div>
   );
 }
