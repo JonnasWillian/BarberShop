@@ -23,7 +23,7 @@ function PainelUsuario() {
 
     const fetchBarbearia = async (mes, ano) => {
         try {
-            const response = await axios.post('http://localhost:3002/api/listarBarbearias/', {usrId: info.userId, mes, ano});
+            const response = await axios.post('http://localhost:8080/api/listarBarbearias/', {usrId: info.userId, mes, ano});
             setAgendaDoMes(response.data);
         } catch (error) {
             console.error('Erro ao buscar barbearias:', error);
@@ -40,7 +40,7 @@ function PainelUsuario() {
 
     const fetchData = async () => {
         try {
-            const response = await axios.post('http://localhost:3002/api/dadosBarbeariaAssociada', {
+            const response = await axios.post('http://localhost:8080/api/dadosBarbeariaAssociada', {
             id: info.id_barbearia
           });
             const result = await response.data;
@@ -63,7 +63,7 @@ function PainelUsuario() {
         e.preventDefault();
         try {
           // Enviar os dados do cartão para o backend
-          const response = await axios.post('http://localhost:3002/api/agendarCorte', {
+          const response = await axios.post('http://localhost:8080/api/agendarCorte', {
             usrId: info.userId,
             idBarbearia: info.id_barbearia,
             dia: date.getDate(),

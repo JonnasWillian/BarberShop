@@ -21,7 +21,7 @@ function PagamentoCliente({ props }) {
     console.log(info, email)
     try {
       // Enviar os dados do cartão para o backend
-      const response = await axios.post('http://localhost:3002/api/pagamento', {
+      const response = await axios.post('http://localhost:8080/api/pagamento', {
         id: info.userId,
         email: email
       });

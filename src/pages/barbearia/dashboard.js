@@ -44,7 +44,7 @@ function Dashboard({ props }) {
 
   const fetchData = async () => {
     try {
-        const response = await axios.post('http://localhost:3002/api/membrosBarbearia', {
+        const response = await axios.post('http://localhost:8080/api/membrosBarbearia', {
         id: info.userId
       });
         const result = await response.data;
@@ -58,7 +58,7 @@ function Dashboard({ props }) {
   const [cortes, setCortes] = useState('');
   const fetchCortes = async () => {
     try {
-        const response = await axios.post('http://localhost:3002/api/buscarCortesDoMes', {
+        const response = await axios.post('http://localhost:8080/api/buscarCortesDoMes', {
           id_barbearia: info.userId,
           mes: mes,
           ano, ano

@@ -52,7 +52,7 @@ function Entradas({props}) {
 
     const fetchCortes = async () => {
         try {
-            const response = await axios.post('http://localhost:3002/api/buscarCortesBarbearia', {
+            const response = await axios.post('http://localhost:8080/api/buscarCortesBarbearia', {
             id: info.userId,
             mes: mesAtual,
             ano: anoAtual

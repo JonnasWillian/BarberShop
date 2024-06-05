@@ -11,7 +11,7 @@ const router = require("./server/rotas");
 
 // Configurando o servidor da API
 const app = express();
-const port = 3002;
+const port = 8080;
 
 // Configurando Cors
 app.use(cors());

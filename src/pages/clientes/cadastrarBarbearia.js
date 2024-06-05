@@ -21,7 +21,7 @@ function CadastrarBarbearia() {
     useEffect(() => {
         async function fetchBarbearia() {
           try {
-            const response = await axios.get('http://localhost:3002/api/listaBarbearias/');
+            const response = await axios.get('http://localhost:8080/api/listaBarbearias/');
             console.log(response)
             setBarbearia(response.data);
           } catch (error) {
@@ -46,7 +46,7 @@ function CadastrarBarbearia() {
         e.preventDefault();
         try {
           // Enviar os dados do cartão para o backend
-          const response = await axios.post('http://localhost:3002/api/associarBarbearia', {
+          const response = await axios.post('http://localhost:8080/api/associarBarbearia', {
             barbeariaSelecionada: form.id_barbearia,
             idUser: info.userId
           });

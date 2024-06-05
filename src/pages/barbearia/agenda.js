@@ -44,7 +44,7 @@ function Agenda({ props }) {
 
     const fetchBarbearia = async (mes) => {
         try {
-            const response = await axios.post('http://localhost:3002/api/listarAgendaCortesBarbearias/', {usrId: info.userId, mes});
+            const response = await axios.post('http://localhost:8080/api/listarAgendaCortesBarbearias/', {usrId: info.userId, mes});
             setAgendaDoMes(response.data);
         } catch (error) {
             console.error('Erro ao buscar barbearias:', error);

@@ -20,7 +20,7 @@ function VerificarPlano({ props }) {
 
     const fetchBarbearia = async (id_plano) => {
         try {
-            const response = await axios.post('http://localhost:3002/api/registrarAssinatura/', {id_plano});
+            const response = await axios.post('http://localhost:8080/api/registrarAssinatura/', {id_plano});
             navigate('/dashboard', { state: { userId: response.id, userName: response.nome } });
         } catch (error) {
             console.error('Erro ao buscar barbearias:', error);
