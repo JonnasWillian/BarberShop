@@ -326,63 +326,28 @@ header .menu-right ul li button {
 
 
 @media (max-width: 768px) {
-  .row {
-    flex-direction: column; 
-
-  .card {
-    width: 100%; 
-  }
+    .row {
+      flex-direction: column;
+    }
+    .card {
+      width: 90%; 
+      padding: 0px;
+    }
+    .image-news {
+      display: none !important;
+    }
 }
-
-}
-
-
-
-
-
-
-
-
-
-
-
 
 @media screen and (max-width: 850px) {
-  .About {
-    display: flex; 
-    flex-direction: column; 
-    height: auto; 
-    position: relative; 
-  }
-  
   .image-about {
-    flex: 1; 
-    background-image: url('/src/images/inicial_admin.jpg');
-    background-size: cover; 
-    background-position: center; 
-    position: relative; 
+    display: none;
   }
 
-  .image-about::before {
-    content: ""; 
-    position: absolute; 
-    top: 0; 
-    left: 0; 
-    width: 100%; 
-    height: 100%; 
-    background-color: rgba(0, 0, 0, 0.541); 
-    z-index: 0;
+  h1 {
+      font-size: 130%;
   }
 
-  .text-about {
-    flex: 1; 
-    padding: 20px;
-    color: #fff;
-    text-align: center; 
-    position: absolute;
-    top: 50%;
-    left: 50%; 
-    transform: translate(-50%, -50%);
-    z-index: 1; 
+  .services {
+    padding: 0px;
   }
 }

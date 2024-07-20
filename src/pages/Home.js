@@ -30,7 +30,8 @@ function Home() {
       return () => {
           window.removeEventListener('scroll', handleScroll);
       };
-  }, []);
+    }, []);
+
     const openModal = () => {
         setModalOpen(true);
     };
@@ -91,158 +92,158 @@ function Home() {
     };
 
     return (
-        <div className="App">
-                   <header>
-                <div className=" menu-left logo">
-                    <h1>Corte certo</h1>
-                    <ul className="menu-left">
-                    <li> <a href="#">Sobre</a></li>
-                        <li><a href="#">Contato</a></li>
-                        <li><a href="#">Serviços</a></li>
-                       </ul>
-                   
-                </div>
-                <nav>
-                    
-                    <ul className="menu-right">
-                        <li><button className="orange-button" onClick={openModal}>Entrar</button></li>
+      <div className="App">
+        <header>
+            <div className=" menu-left logo">
+                <h1>Corte certo</h1>
+                <ul className="menu-left">
+                <li> <a href="#sobre">Sobre</a></li>
+                    <li><a href="#servico">Serviços</a></li>
                     </ul>
-                </nav>
-            </header>
-            <div className="background">
-             
-                <div className="welcome-message">
-                    <h1>Bem-vindo à Corte certo</h1>
-                    <p>Seu lugar para cortes de cabelo, barba e muito mais!</p>
-                    <button className="orange-button"onClick={openModal}>Entrar</button>
-                </div>
+                
             </div>
+            <nav>
+                
+                <ul className="menu-right">
+                    <li><button className="orange-button" onClick={openModal}>Entrar</button></li>
+                </ul>
+            </nav>
+        </header>
 
-            {modalOpen && (
-                <div className="modal" onClick={handleOutsideClick}>
-                    <ModalVerific onSelectUserType={handleUserTypeSelection} />
-                </div>
-            )}
-
-            {modalOpen && userType && (
-                <div className="modal" onClick={handleOutsideClick}>
-                    <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-                        {formType === 'login' ? (
-                            <LoginForm
-                                email={email}
-                                senha={senha}
-                                setEmail={setEmail}
-                                setSenha={setSenha}
-                                handleLogin={handleLogin}
-                                mensagem={mensagem}
-                                closeModal={closeModal}
-                                toggleFormType={toggleFormType}
-                                handleUserTypeSelection={userType}
-                            />
-                        ) : (
-                            <RegisterForm
-                                closeModal={closeModal}
-                                toggleFormType={toggleFormType}
-                                handleUserTypeSelection={userType}
-                            />
-                        )}
-                    </div>
-                </div>
-            )}
-      <main className="About">
-        <div className='image-about'>
-          <img src={image} alt='Imagem' />
+        <div className="background">
+          
+            <div className="welcome-message">
+                <h1>Bem-vindo à Corte certo</h1>
+                <p>Seu lugar para cortes de cabelo, barba e muito mais!</p>
+                <button className="orange-button"onClick={openModal}>Entrar</button>
+            </div>
         </div>
-        <div className='text-about'>
-          <h2>Corte certo</h2>
-          <h3>Música, Network e Brêja</h3>
-          <p>
-            Os consagrados cortes com tesoura, navalha e toalha quente estão de volta e provam que o bem estar da sua pele precisa estar em primeiro lugar. Além é claro, coloração, manicure, estética facial, relaxamento, selagem/progressiva e diversas opções de bebidas artesanais e bebidas quentes. Chegou a revolução da barba e você não vai querer ficar de fora!
-          </p>
-          <h3>Use #EstiloLafirma nas redes sociais.</h3>
-        </div>
-      </main>
 
-      <section className="services">
-        <h2>Serviços</h2>
-        <p>Produtos escolhidos a dedo e profissionais de excelência</p>
-        <p>Estamos prontos para atender as suas necessidades, enquanto você degusta aquela cerveja artesanal importada e bate papo com os amigos.</p>
-        <div className="card-container">
-          <div className="row">
-            <div className="card">
-              <img src={require('../icons/icon1.svg').default} alt="Ícone 1" />
-              <h3>Bar / Petiscaria</h3>
-              <p>Bebidas artesanais, bebidas quentes</p>
-              <a href="#">Leia mais</a>
+        {modalOpen && (
+            <div className="modal" onClick={handleOutsideClick}>
+                <ModalVerific onSelectUserType={handleUserTypeSelection} />
             </div>
+        )}
 
-            <div className="card">
-              <img src={require('../icons/icon2.svg').default} alt="Ícone 1" />
-              <h3>Barba</h3>
-              <p>Trilhamos um caminho old school, por isso a navalha é a nossa companheira.</p>
-              <a href="#">Leia mais</a>
+        {modalOpen && userType && (
+            <div className="modal" onClick={handleOutsideClick}>
+                <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+                    {formType === 'login' ? (
+                        <LoginForm
+                            email={email}
+                            senha={senha}
+                            setEmail={setEmail}
+                            setSenha={setSenha}
+                            handleLogin={handleLogin}
+                            mensagem={mensagem}
+                            closeModal={closeModal}
+                            toggleFormType={toggleFormType}
+                            handleUserTypeSelection={userType}
+                        />
+                    ) : (
+                        <RegisterForm
+                            closeModal={closeModal}
+                            toggleFormType={toggleFormType}
+                            handleUserTypeSelection={userType}
+                        />
+                    )}
+                </div>
             </div>
+        )}
+        <main className="About" id='sobre'>
+          <div className='image-about'>
+            <img src={image} alt='Imagem' />
+          </div>
+          <div className='text-about'>
+            <h2>Corte certo</h2>
+            <h3>Música, Network e Brêja</h3>
+            <p>
+              Os consagrados cortes com tesoura, navalha e toalha quente estão de volta e provam que o bem estar da sua pele precisa estar em primeiro lugar. Além é claro, coloração, manicure, estética facial, relaxamento, selagem/progressiva e diversas opções de bebidas artesanais e bebidas quentes. Chegou a revolução da barba e você não vai querer ficar de fora!
+            </p>
+            <h3>Use #EstiloLafirma nas redes sociais.</h3>
+          </div>
+        </main>
 
-            <div className="card">
-              <img src={require('../icons/icon3.svg').default} alt="Ícone 1" />
-              <h3>Cabelo</h3>
-              <p>Nossos profissionais vão te ajudar a escolher o corte que melhor encaixe no seu perfil.</p>
-              <a href="#">Leia mais</a>
+        <section className="services" id='servico'>
+          <h2>Serviços</h2>
+          <p>Produtos escolhidos a dedo e profissionais de excelência</p>
+          <p>Estamos prontos para atender as suas necessidades, enquanto você degusta aquela cerveja artesanal importada e bate papo com os amigos.</p>
+          <div className="card-container">
+            <div className="row">
+              <div className="card">
+                <img src={require('../icons/icon1.svg').default} alt="Ícone 1" />
+                <h3>Bar / Petiscaria</h3>
+                <p>Bebidas artesanais, bebidas quentes</p>
+                <a href="#">Leia mais</a>
+              </div>
+
+              <div className="card">
+                <img src={require('../icons/icon2.svg').default} alt="Ícone 1" />
+                <h3>Barba</h3>
+                <p>Trilhamos um caminho old school, por isso a navalha é a nossa companheira.</p>
+                <a href="#">Leia mais</a>
+              </div>
+
+              <div className="card">
+                <img src={require('../icons/icon3.svg').default} alt="Ícone 1" />
+                <h3>Cabelo</h3>
+                <p>Nossos profissionais vão te ajudar a escolher o corte que melhor encaixe no seu perfil.</p>
+                <a href="#">Leia mais</a>
+              </div>
+
+              <div className="card">
+                <img src={require('../icons/icon4.svg').default} alt="Ícone 1" />
+                <h3>Coloração</h3>
+                <p>O homem moderno não deseja apenas cobrir os fios brancos. É preciso ficar na moda.</p>
+                <a href="#">Leia mais</a>
+              </div>
             </div>
-
-            <div className="card">
-              <img src={require('../icons/icon4.svg').default} alt="Ícone 1" />
-              <h3>Coloração</h3>
-              <p>O homem moderno não deseja apenas cobrir os fios brancos. É preciso ficar na moda.</p>
-              <a href="#">Leia mais</a>
+            <div className="row">
+              <div className="card">
+                <img src={require('../icons/icon5.svg').default} alt="Ícone 1" />
+                <h3>ESTÉTICA FACIAL</h3>
+                <p>O homem moderno deseja cada vez mais estar em dia com os cuidados com a pele.</p>
+                <a href="#">Leia mais</a>
+              </div>
+              <div className="card">
+                <img src={require('../icons/icon6.svg').default} alt="Ícone 1" />
+                <h3>Manicure</h3>
+                <p>Os cuidados com os pés e as mãos não devem ficar renegados apenas à higiene.</p>
+                <a href="#">Leia mais</a>
+              </div>
+              <div className="card">
+                <img src={require('../icons/icon7.svg').default} alt="Ícone 1" />
+                <h3>Relaxamento</h3>
+                <p>Foi-se o tempo em que apenas as mulheres desejavam manter os cabelos lisos e com vida.</p>
+                <a href="#">Leia mais</a>
+              </div>
+              <div className="card">
+                <img src={require('../icons/icon8.svg').default} alt="Ícone 1" />
+                <h3>SELAGEM <br /> /PROGRESSIVA</h3>
+                <p>O cabelo é fundamental em um visual de respeito!</p>
+                <a href="#">Leia mais</a>
+              </div>
             </div>
           </div>
-          <div className="row">
-            <div className="card">
-              <img src={require('../icons/icon5.svg').default} alt="Ícone 1" />
-              <h3>ESTÉTICA FACIAL</h3>
-              <p>O homem moderno deseja cada vez mais estar em dia com os cuidados com a pele.</p>
-              <a href="#">Leia mais</a>
-            </div>
-            <div className="card">
-              <img src={require('../icons/icon6.svg').default} alt="Ícone 1" />
-              <h3>Manicure</h3>
-              <p>Os cuidados com os pés e as mãos não devem ficar renegados apenas à higiene.</p>
-              <a href="#">Leia mais</a>
-            </div>
-            <div className="card">
-              <img src={require('../icons/icon7.svg').default} alt="Ícone 1" />
-              <h3>Relaxamento</h3>
-              <p>Foi-se o tempo em que apenas as mulheres desejavam manter os cabelos lisos e com vida.</p>
-              <a href="#">Leia mais</a>
-            </div>
-            <div className="card">
-              <img src={require('../icons/icon8.svg').default} alt="Ícone 1" />
-              <h3>SELAGEM <br /> /PROGRESSIVA</h3>
-              <p>O cabelo é fundamental em um visual de respeito!</p>
-              <a href="#">Leia mais</a>
-            </div>
+        </section>
+
+        <section className='news'>
+          <div className='text-news'>
+            <h2>Corte certo</h2>
+            <h3>Música, Network e Brêja</h3>
+            <p>
+              Os consagrados cortes com tesoura, navalha e toalha quente estão de volta e provam que o bem estar da sua pele precisa estar em primeiro lugar. Além é claro, coloração, manicure, estética facial, relaxamento, selagem/progressiva e diversas opções de bebidas artesanais e bebidas quentes. Chegou a revolução da barba e você não vai querer ficar de fora!
+            </p>
           </div>
-        </div>
-      </section>
+          <div className='image-news'>
+            <img src={imagenoivo} alt='Imagem' />
+          </div>
+        </section>
 
-      <section className='news'>
-        <div className='text-news'>
-          <h2>Corte certo</h2>
-          <h3>Música, Network e Brêja</h3>
-          <p>
-            Os consagrados cortes com tesoura, navalha e toalha quente estão de volta e provam que o bem estar da sua pele precisa estar em primeiro lugar. Além é claro, coloração, manicure, estética facial, relaxamento, selagem/progressiva e diversas opções de bebidas artesanais e bebidas quentes. Chegou a revolução da barba e você não vai querer ficar de fora!
-          </p>
-        </div>
-        <div className='image-news'>
-          <img src={imagenoivo} alt='Imagem' />
-        </div>
-      </section>
-
-      <footer>
-			  Copyright <a target='_blanck' href='https://devscody.web.app/'>DevsCody</a> ₢ 2024
-		  </footer>
-    </div>
+        <footer>
+          Copyright <a target='_blanck' href='https://devscody.web.app/'>DevsCody</a> ₢ 2024
+        </footer>
+      </div>
   );
 }
 
