@@ -257,7 +257,7 @@ router.post('/pagamento', async (req, res) => {
       end_date: fimPlano
     },
     payer_email: email,
-    back_url: new URL('https://devscody.web.app/').toString(),
+    back_url: new URL('https://devscody.com').toString(),
   };
 
   try {

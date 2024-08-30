@@ -241,7 +241,7 @@ function Home() {
         </section>
 
         <footer>
-          Copyright <a target='_blanck' href='https://devscody.web.app/'>DevsCody</a> ₢ 2024
+          Copyright <a target='_blanck' href='https://devscody.com/'>DevsCody</a> ₢ 2024
         </footer>
       </div>
   );
